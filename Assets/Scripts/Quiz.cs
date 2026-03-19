@@ -48,7 +48,7 @@ public class Quiz : MonoBehaviour
         timer = FindFirstObjectByType<Timer>();
         scoreKeeper = FindAnyObjectByType<ScoreKeeper>();
         hintsRemaning = hintPerQuiz;
-        
+
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class Quiz : MonoBehaviour
     {
         timerImage.fillAmount = timer.fillFraction;
 
-        if(timer.loadNextQuestion)
+        if (timer.loadNextQuestion)
         {
             if (progressBar.value == progressBar.maxValue)
             {
@@ -152,61 +152,62 @@ public class Quiz : MonoBehaviour
     {
         if (questions.Count > 0)
         {
-            for(int i = 0; i< answerButtons.Length; i++)
+            for (int i = 0; i < answerButtons.Length; i++)
             {
                 answerButtons[i].SetActive(true);
 
-            SetButtonState(true);
-            SetDefultButtonSprite();
-            getRandomQuestion();
-            DisplayQuestion();
-            progressBar.value++;
-            scoreKeeper.IncrementQuestionsSeen();
+                SetButtonState(true);
+                SetDefultButtonSprite();
+                getRandomQuestion();
+                DisplayQuestion();
+                progressBar.value++;
+                scoreKeeper.IncrementQuestionsSeen();
+            }
         }
     }
 
-
-    void SetDefultButtonSprite()
-    {
-        
-        for (int i = 0; i < answerButtons.Length; i++)
+        void SetDefultButtonSprite()
         {
-            Image buttonImage = answerButtons[i].GetComponent<Image>();
-            buttonImage.sprite = defaultAnswerSprite;
-        }
-    }
 
-    void DisplayAwnser (int index)
-    {
-        Image buttonImage;
-        if (index == currentQuestion.GetCorrectAwnserIndex())
+            for (int i = 0; i < answerButtons.Length; i++)
+            {
+                Image buttonImage = answerButtons[i].GetComponent<Image>();
+                buttonImage.sprite = defaultAnswerSprite;
+            }
+        }
+
+        void DisplayAwnser(int index)
         {
-            questionText.text = "Correct!";
-            buttonImage = answerButtons[index].GetComponent<Image>();
-            buttonImage.sprite = correctAnswerSprite;
-            scoreKeeper.IncrementCorrectAwnsers();
+            Image buttonImage;
+            if (index == currentQuestion.GetCorrectAwnserIndex())
+            {
+                questionText.text = "Correct!";
+                buttonImage = answerButtons[index].GetComponent<Image>();
+                buttonImage.sprite = correctAnswerSprite;
+                scoreKeeper.IncrementCorrectAwnsers();
+            }
+            else
+            {
+                correctAnswerIndex = currentQuestion.GetCorrectAwnserIndex();
+                string correctAwser = currentQuestion.GetAnswer(correctAnswerIndex);
+                questionText.text = "Sorry The Correct Awnser was: \n" + correctAwser;
+                buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
+                buttonImage.sprite = correctAnswerSprite;
+            }
         }
-        else
+
+        void getRandomQuestion()
         {
-            correctAnswerIndex = currentQuestion.GetCorrectAwnserIndex();
-            string correctAwser = currentQuestion.GetAnswer(correctAnswerIndex);
-            questionText.text = "Sorry The Correct Awnser was: \n" + correctAwser;
-            buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
-            buttonImage.sprite = correctAnswerSprite;
+            int index = Random.Range(0, questions.Count);
+
+            currentQuestion = questions[index];
+
+            if (questions.Contains(currentQuestion))
+            {
+                questions.Remove(currentQuestion);
+            }
         }
-    }
 
-    void getRandomQuestion()
-    {
-        int index = Random.Range(0, questions.Count);
 
-        currentQuestion = questions[index];
-
-        if(questions.Contains(currentQuestion))
-        {
-            questions.Remove(currentQuestion);
-        }
-    }
     
-
 }
