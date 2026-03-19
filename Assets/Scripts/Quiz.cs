@@ -38,6 +38,7 @@ public class Quiz : MonoBehaviour
     [Header("hints")]
     [SerializeField] GameObject hintButton;
     [SerializeField] int hintPerQuiz = 3;
+    bool hintsUsedPerQuestion;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -88,7 +89,9 @@ public class Quiz : MonoBehaviour
 
     public void OnHintsSelected()
     {
-        if (hintsRemaning >= 0) return;
+        if (hintsRemaning <= 0 || hintsUsedPerQuestion ) return;
+
+        hintsUsedPerQuestion = true;
 
         int correctIndex = currentQuestion.GetCorrectAwnserIndex();
 
@@ -113,7 +116,7 @@ public class Quiz : MonoBehaviour
         int toHide = Mathf.Min(2, incorrectIndecies.Count);
         for (int i = 0; i < toHide; i++)
         {
-            answerButtons[i].SetActive(false);
+            answerButtons[incorrectIndecies [i]].SetActive(false);
         }
 
         hintsRemaning--;
@@ -155,6 +158,8 @@ public class Quiz : MonoBehaviour
             for (int i = 0; i < answerButtons.Length; i++)
             {
                 answerButtons[i].SetActive(true);
+            }
+            hintsUsedPerQuestion = false;
 
                 SetButtonState(true);
                 SetDefultButtonSprite();
@@ -162,7 +167,7 @@ public class Quiz : MonoBehaviour
                 DisplayQuestion();
                 progressBar.value++;
                 scoreKeeper.IncrementQuestionsSeen();
-            }
+            
         }
     }
 
@@ -209,5 +214,5 @@ public class Quiz : MonoBehaviour
         }
 
 
-    
+
 }
