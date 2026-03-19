@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f6277e05efa7548b4681bbcc90d6db, type: 3}
   m_Name: Question1
   m_EditorClassIdentifier: Assembly-CSharp::QuestionsSO
-  question: 'In Nordic Mithology How Many Relms Are There? '
+  question: 'In nordic mithology how many relms are there? '
   answer:
   - 'A: 8'
   - 'B: 9'

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f6277e05efa7548b4681bbcc90d6db, type: 3}
   m_Name: Question2
   m_EditorClassIdentifier: Assembly-CSharp::QuestionsSO
-  question: Who Is The Greek God Of War
+  question: Who is the greek god of war
   answer:
   - Ares
   - Kratos

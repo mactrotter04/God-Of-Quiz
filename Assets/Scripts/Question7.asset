@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6f6277e05efa7548b4681bbcc90d6db, type: 3}
-  m_Name: Question3
+  m_Name: Question7
   m_EditorClassIdentifier: Assembly-CSharp::QuestionsSO
-  question: Who is the japanese god of lightning,thunder, storms?
+  question: How many mainstream relegions are there?
   answer:
-  - "F\u016Bjin"
-  - "Ry\u016Bjin"
-  - 'Raiden '
-  - Raijin
-  correctAwnserIndex: 3
+  - 3
+  - 5
+  - 7
+  - 9
+  correctAwnserIndex: 1

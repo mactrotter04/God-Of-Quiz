@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,21 +27,27 @@ public class Quiz : MonoBehaviour
     [Header("progress bar")]
     [SerializeField] Slider progressBar;
 
-    public bool isComplete;
+    [HideInInspector] public bool isComplete;
     int correctAnswerIndex;
     Timer timer;
-    public bool hasAwnseredEarly;
+    bool hasAwnseredEarly = true;
     QuestionsSO currentQuestion;
     ScoreKeeper scoreKeeper;
+    int hintsRemaning;
+
+    [Header("hints")]
+    [SerializeField] GameObject hintButton;
+    [SerializeField] int hintPerQuiz = 3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         scoreText.text = "0%";
         progressBar.maxValue = questions.Count;
         progressBar.value = 0;
         timer = FindFirstObjectByType<Timer>();
         scoreKeeper = FindAnyObjectByType<ScoreKeeper>();
+        hintsRemaning = hintPerQuiz;
         
     }
 
@@ -51,6 +58,13 @@ public class Quiz : MonoBehaviour
 
         if(timer.loadNextQuestion)
         {
+            if (progressBar.value == progressBar.maxValue)
+            {
+                isComplete = true;
+                return;
+            }
+
+
             hasAwnseredEarly = false;
             GetNextQuestion();
             timer.loadNextQuestion = false;
@@ -70,11 +84,46 @@ public class Quiz : MonoBehaviour
         SetButtonState(false);
         timer.CancleTimer();
         scoreText.text = scoreKeeper.CalculateSCore() + "%";
+    }
 
-        if(progressBar.value == progressBar.maxValue)
+    public void OnHintsSelected()
+    {
+        if (hintsRemaning >= 0) return;
+
+        int correctIndex = currentQuestion.GetCorrectAwnserIndex();
+
+        List<int> incorrectIndecies = new List<int>();
+
+        for (int i = 0; i < answerButtons.Length; i++)
         {
-            isComplete = true;
+            if (i != correctIndex && answerButtons[i].activeSelf)
+            {
+                incorrectIndecies.Add(i);
+            }
         }
+
+        for (int i = incorrectIndecies.Count - 1; i > 0; i--)
+        {
+            int rand = Random.Range(0, i + 1);
+            int temp = incorrectIndecies[i];
+            incorrectIndecies[i] = incorrectIndecies[rand];
+            incorrectIndecies[rand] = temp;
+        }
+
+        int toHide = Mathf.Min(2, incorrectIndecies.Count);
+        for (int i = 0; i < toHide; i++)
+        {
+            answerButtons[i].SetActive(false);
+        }
+
+        hintsRemaning--;
+
+        if (hintsRemaning <= 0)
+        {
+            hintButton.GetComponent<Button>().interactable = false;
+        }
+
+
     }
 
     void DisplayQuestion()
@@ -103,6 +152,10 @@ public class Quiz : MonoBehaviour
     {
         if (questions.Count > 0)
         {
+            for(int i = 0; i< answerButtons.Length; i++)
+            {
+                answerButtons[i].SetActive(true);
+
             SetButtonState(true);
             SetDefultButtonSprite();
             getRandomQuestion();

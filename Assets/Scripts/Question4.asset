@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f6277e05efa7548b4681bbcc90d6db, type: 3}
   m_Name: Question4
   m_EditorClassIdentifier: Assembly-CSharp::QuestionsSO
-  question: What is The Hindu God Narasimha Commonly Depicted As?
+  question: What is the hindu god narasimha commonly depicted as?
   answer:
   - Boar
   - Goat
