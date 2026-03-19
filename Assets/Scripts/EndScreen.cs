@@ -15,7 +15,7 @@ public class EndScreen : MonoBehaviour
     public void ShowFinalScore()
     {
         finalScoreText.text = "congratulations! \nScore: " + 
-            scoreKeeper.CalculateSCore() + "%";
+            scoreKeeper.CalculateSCore() + "pts";
     }
 
 }

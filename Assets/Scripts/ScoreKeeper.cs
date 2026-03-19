@@ -4,6 +4,10 @@ public class ScoreKeeper : MonoBehaviour
 {
     int correctAnswers = 0;
     int questionsSeen = 0;
+    int score = 0;
+    int currentStreak = 0;
+    [SerializeField] int scoreToAdd = 100;
+    [SerializeField] int maxStreakBonus = 300;
      
     public int GetCorrectAwnsers()
     {
@@ -18,6 +22,9 @@ public class ScoreKeeper : MonoBehaviour
     public void IncrementCorrectAwnsers()
     {
         correctAnswers++;
+        currentStreak++;
+        int points = Mathf.Min(currentStreak * scoreToAdd, maxStreakBonus);
+        score += points;
     }
 
     public void IncrementQuestionsSeen()
@@ -27,6 +34,11 @@ public class ScoreKeeper : MonoBehaviour
 
     public int CalculateSCore()
     {
-        return Mathf.RoundToInt(correctAnswers / (float)questionsSeen * 100);
+        return score;
+    }
+
+    public void ResetStreak()
+    {
+        currentStreak = 0;
     }
 }

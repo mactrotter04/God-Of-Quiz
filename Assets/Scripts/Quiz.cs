@@ -43,7 +43,7 @@ public class Quiz : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        scoreText.text = "0%";
+        scoreText.text = "0pts";
         progressBar.maxValue = questions.Count;
         progressBar.value = 0;
         timer = FindFirstObjectByType<Timer>();
@@ -84,12 +84,12 @@ public class Quiz : MonoBehaviour
 
         SetButtonState(false);
         timer.CancleTimer();
-        scoreText.text = scoreKeeper.CalculateSCore() + "%";
+        scoreText.text = scoreKeeper.CalculateSCore() + "pts";
     }
 
     public void OnHintsSelected()
     {
-        if (hintsRemaning <= 0 || hintsUsedPerQuestion ) return;
+        if (hintsRemaning <= 0 || hintsUsedPerQuestion) return;
 
         hintsUsedPerQuestion = true;
 
@@ -116,7 +116,7 @@ public class Quiz : MonoBehaviour
         int toHide = Mathf.Min(2, incorrectIndecies.Count);
         for (int i = 0; i < toHide; i++)
         {
-            answerButtons[incorrectIndecies [i]].SetActive(false);
+            answerButtons[incorrectIndecies[i]].SetActive(false);
         }
 
         hintsRemaning--;
@@ -161,57 +161,60 @@ public class Quiz : MonoBehaviour
             }
             hintsUsedPerQuestion = false;
 
-                SetButtonState(true);
-                SetDefultButtonSprite();
-                getRandomQuestion();
-                DisplayQuestion();
-                progressBar.value++;
-                scoreKeeper.IncrementQuestionsSeen();
-            
+            SetButtonState(true);
+            SetDefultButtonSprite();
+            getRandomQuestion();
+            DisplayQuestion();
+            progressBar.value++;
+            scoreKeeper.IncrementQuestionsSeen();
+
         }
     }
 
-        void SetDefultButtonSprite()
+    void SetDefultButtonSprite()
+    {
+
+        for (int i = 0; i < answerButtons.Length; i++)
         {
-
-            for (int i = 0; i < answerButtons.Length; i++)
-            {
-                Image buttonImage = answerButtons[i].GetComponent<Image>();
-                buttonImage.sprite = defaultAnswerSprite;
-            }
+            Image buttonImage = answerButtons[i].GetComponent<Image>();
+            buttonImage.sprite = defaultAnswerSprite;
         }
+    }
 
-        void DisplayAwnser(int index)
+    void DisplayAwnser(int index)
+    {
+        Image buttonImage;
+        if (index == currentQuestion.GetCorrectAwnserIndex())
         {
-            Image buttonImage;
-            if (index == currentQuestion.GetCorrectAwnserIndex())
-            {
-                questionText.text = "Correct!";
-                buttonImage = answerButtons[index].GetComponent<Image>();
-                buttonImage.sprite = correctAnswerSprite;
-                scoreKeeper.IncrementCorrectAwnsers();
-            }
-            else
-            {
-                correctAnswerIndex = currentQuestion.GetCorrectAwnserIndex();
-                string correctAwser = currentQuestion.GetAnswer(correctAnswerIndex);
-                questionText.text = "Sorry The Correct Awnser was: \n" + correctAwser;
-                buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
-                buttonImage.sprite = correctAnswerSprite;
-            }
-        }
+            questionText.text = "Correct!";
+            buttonImage = answerButtons[index].GetComponent<Image>();
+            buttonImage.sprite = correctAnswerSprite;
+            scoreKeeper.IncrementCorrectAwnsers();
 
-        void getRandomQuestion()
+        }
+        else
         {
-            int index = Random.Range(0, questions.Count);
+            correctAnswerIndex = currentQuestion.GetCorrectAwnserIndex();
+            string correctAwser = currentQuestion.GetAnswer(correctAnswerIndex);
+            questionText.text = "Sorry The Correct Awnser was: \n" + correctAwser;
+            buttonImage = answerButtons[correctAnswerIndex].GetComponent<Image>();
+            buttonImage.sprite = correctAnswerSprite;
+            scoreKeeper.ResetStreak();
 
-            currentQuestion = questions[index];
-
-            if (questions.Contains(currentQuestion))
-            {
-                questions.Remove(currentQuestion);
-            }
         }
+    }
+
+    void getRandomQuestion()
+    {
+        int index = Random.Range(0, questions.Count);
+
+        currentQuestion = questions[index];
+
+        if (questions.Contains(currentQuestion))
+        {
+            questions.Remove(currentQuestion);
+        }
+    }
 
 
 
