@@ -67,15 +67,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: God Of Quizzes
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ad930f83f00d8714eafebeae8773bf3a, type: 2}
-  m_sharedMaterial: {fileID: -7180507014326267813, guid: ad930f83f00d8714eafebeae8773bf3a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2a31c671bb2f018459b73dbdd1e36f9e, type: 2}
+  m_sharedMaterial: {fileID: 1690500639237065817, guid: 2a31c671bb2f018459b73dbdd1e36f9e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278254716
+  m_fontColor: {r: 0.4862745, g: 0.9882354, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -198,7 +198,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &6406687619231211086
 MonoBehaviour:
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8ba7bc7552a30d44b8866df0e8dc757b, type: 3}
+  m_Sprite: {fileID: 4606088739159046964, guid: 9c269bcd2cc659740b5e77cddd0f5de4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
